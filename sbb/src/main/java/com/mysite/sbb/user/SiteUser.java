@@ -1,5 +1,5 @@
 package com.mysite.sbb.user;
-
+// SiteUser가 질문을 작성한 사람의 정보를 담고 있는 객체임
 
 import jakarta.persistence.*;
 import lombok.Getter;
