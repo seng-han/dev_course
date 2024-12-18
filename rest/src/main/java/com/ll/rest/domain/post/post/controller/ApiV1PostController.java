@@ -3,7 +3,10 @@ package com.ll.rest.domain.post.post.controller;
 import com.ll.rest.domain.post.post.entity.Post;
 import com.ll.rest.domain.post.post.service.PostService;
 import com.ll.rest.global.rsData.RsData;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +46,11 @@ public class ApiV1PostController {
 
 
     record PostModifyReqBody ( //record는 그냥 class임 단지 코드 길이 줄임
+         @NotBlank
+         @Length(min =2)
          String title,
+                               @NotBlank
+                               @Length(min =2)
          String content
     ){
     }
@@ -52,7 +59,7 @@ public class ApiV1PostController {
     @Transactional
     public RsData modifyItem(
             @PathVariable long id,
-            @RequestBody PostModifyReqBody reqBody
+            @RequestBody @Valid PostModifyReqBody reqBody
     ) {
         Post post = postService.findById(id).get();
 
