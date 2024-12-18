@@ -45,14 +45,14 @@ public class ApiV1PostController {
     }
 
 
-    record PostModifyReqBody ( //record는 그냥 class임 단지 코드 길이 줄임
-         @NotBlank
-         @Length(min =2)
-         String title,
-                               @NotBlank
-                               @Length(min =2)
-         String content
-    ){
+    record PostModifyReqBody( //record는 그냥 class임 단지 코드 길이 줄임
+                              @NotBlank
+                              @Length(min = 2)
+                              String title,
+                              @NotBlank
+                              @Length(min = 2)
+                              String content
+    ) {
     }
 
     @PutMapping("/{id}")
@@ -65,9 +65,35 @@ public class ApiV1PostController {
 
         postService.modify(post, reqBody.title, reqBody.content);
 
-       return new RsData(
-               "200-1",
-               "%d번 글이 수정되었습니다".formatted(id)
-       );
+        return new RsData(
+                "200-1",
+                "%d번 글이 수정되었습니다".formatted(id)
+        );
+    }
+
+    record PostWriteReqBody(
+            @NotBlank
+            @Length(min = 2)
+            String title,
+            @NotBlank
+            @Length(min = 2)
+            String content
+    ) {
+    }
+
+    @PostMapping
+    public RsData writeItem(
+            @RequestBody @Valid PostWriteReqBody reqBody //@Valid를 여기에 써서 검증 대상임을 명시해줌
+    ) {
+        Post post = postService.write(reqBody.title(), reqBody.content());
+
+        return new RsData(
+                "200-1",
+                "%d번 글이 등록되었습니다".formatted(post.getId())
+        );
     }
 }
+
+
+
+
