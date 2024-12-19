@@ -64,7 +64,7 @@ public class ApiV1PostController {
 
     @PutMapping("/{id}")
     @Transactional
-    public RsData modifyItem(
+    public RsData<PostDto> modifyItem(
             @PathVariable long id,
             @RequestBody @Valid PostModifyReqBody reqBody //requestBody는 수정과 생성해만 있음 다른데에서는 필요 없으니깐 없음
     ) {
@@ -72,7 +72,7 @@ public class ApiV1PostController {
 
         postService.modify(post, reqBody.title, reqBody.content);
 
-        return new RsData(
+        return new RsData<>(
                 "200-1",
                 "%d번 글이 수정되었습니다".formatted(id),
                 new PostDto(post) //수정됐을 때 수정된 객체를 보여주기 위해 추가.dto로 감싸서
@@ -90,14 +90,15 @@ public class ApiV1PostController {
     }
 
     @PostMapping
-    public RsData writeItem(
+    public RsData<Long> writeItem(
             @RequestBody @Valid PostWriteReqBody reqBody //@Valid를 여기에 써서 검증 대상임을 명시해줌
     ) {
         Post post = postService.write(reqBody.title(), reqBody.content());
 
-        return new RsData(
+        return new RsData<Long>(
                 "200-1",
-                "%d번 글이 등록되었습니다".formatted(post.getId())
+                "%d번 글이 등록되었습니다".formatted(post.getId()),
+                post.getId()
         );
     }
 }
