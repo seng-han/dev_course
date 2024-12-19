@@ -20,6 +20,7 @@ public class Answer {
     private String content;
 
     private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
 
     @ManyToOne //answer엔티티의 question 속성과 question엔티티와 연결됨
     private Question question;
