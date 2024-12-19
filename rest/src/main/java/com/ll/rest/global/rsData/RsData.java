@@ -8,13 +8,13 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)//json화 할 때 null이 포함되지 않게함
 @AllArgsConstructor
 @Getter
-public class RsData {
+public class RsData<T> {
     private String resultCode;
     private String msg;
-    private Object data; //object로 변경
+    private T data; //T는 제너릭=미완성문법 .t를 지정해주지 않으면 object임.
 
     public RsData(String resultCode, String msg){
         this(resultCode, msg, null);
     }
 }
-//RsData 인자 두개받는 생성자, 세개받는 생성자 둘 다 만듦
+
