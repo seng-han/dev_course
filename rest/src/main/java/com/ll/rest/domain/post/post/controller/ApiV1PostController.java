@@ -40,7 +40,7 @@ public class ApiV1PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(
+    public ResponseEntity<RsData<Void>> deleteItem(
             @PathVariable long id
     ) {
         // Post를 찾아서 삭제
@@ -49,8 +49,10 @@ public class ApiV1PostController {
 
         // 204 No Content 응답 반환
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)//204(성공,바디없는)에서 200(성공,바디있는)으로 변경
+                .body(new RsData<>(
+                        "200-1","%d번 글이 삭제 되었습니다"
+                ));
     }
 
 
