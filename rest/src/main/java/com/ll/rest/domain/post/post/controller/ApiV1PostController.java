@@ -102,7 +102,7 @@ public class ApiV1PostController {
         Post post = postService.write(reqBody.title, reqBody.content);
 
         return new RsData<>(
-                "200-1",
+                "200-1",//ResponseAspect와 연결됨
                 "%d번 글이 작성되었습니다.".formatted(post.getId()),
                 new PostWriteResBody(
                         new PostDto(post),
