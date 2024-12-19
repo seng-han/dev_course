@@ -1,19 +1,20 @@
 package com.ll.rest.global.rsData;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)//json화 할 때 null이 포함되지 않게함
 @AllArgsConstructor
 @Getter
 public class RsData {
     private String resultCode;
     private String msg;
-    private long data; //생성할 때만 data가 보이게 해야함
+    private Object data; //object로 변경
 
     public RsData(String resultCode, String msg){
-        //지금 rsdata에 세개인데 두개만 받는 것들을 위해서 생성자를 따로 만들어줌
-        this.resultCode = resultCode;
-        this.msg = msg;
+        this(resultCode, msg, null);
     }
 }
 //RsData 인자 두개받는 생성자, 세개받는 생성자 둘 다 만듦

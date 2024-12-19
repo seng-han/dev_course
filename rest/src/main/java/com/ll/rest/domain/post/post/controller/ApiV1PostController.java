@@ -74,7 +74,8 @@ public class ApiV1PostController {
 
         return new RsData(
                 "200-1",
-                "%d번 글이 수정되었습니다".formatted(id)
+                "%d번 글이 수정되었습니다".formatted(id),
+                new PostDto(post) //수정됐을 때 수정된 객체를 보여주기 위해 추가.dto로 감싸서
         );
     }
 
