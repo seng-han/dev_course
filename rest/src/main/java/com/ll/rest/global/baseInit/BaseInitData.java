@@ -42,10 +42,13 @@ public class BaseInitData {
 
     @Transactional
     public void work2() {
-        if (postService.count() > 0) return;
+        if (postService.count() > 0) return;//중복데이터 생성을 방지
 
-        Post post1 = postService.write("축구 하실 분?", "14시 까지 22명을 모아야 합니다.");
-        Post post2 = postService.write("배구 하실 분?", "15시 까지 12명을 모아야 합니다.");
-        Post post3 = postService.write("농구 하실 분?", "16시 까지 10명을 모아야 합니다.");
+        Member memberUser1 = memberService.findByUsername("user1").get();
+        Member memberUser2 = memberService.findByUsername("user2").get();
+
+        Post post1 = postService.write(memberUser1,"축구 하실 분?", "14시 까지 22명을 모아야 합니다.");
+        Post post2 = postService.write(memberUser1,"배구 하실 분?", "15시 까지 12명을 모아야 합니다.");
+        Post post3 = postService.write(memberUser2,"농구 하실 분?", "16시 까지 10명을 모아야 합니다.");
     }
 }
