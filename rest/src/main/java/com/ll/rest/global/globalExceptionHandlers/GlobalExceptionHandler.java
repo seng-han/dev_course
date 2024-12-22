@@ -1,6 +1,7 @@
-package com.ll.rest.global.globalExceptionHandlers;
+package com.ll.rest.global.globalExceptionHandler;
 
 import com.ll.rest.global.app.AppConfig;
+import com.ll.rest.global.exceptions.ServiceException;
 import com.ll.rest.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<RsData<Void>> handle(NoSuchElementException ex) {
 
-        if(AppConfig.isNotProd()) ex.printStackTrace();//dev,test,production(운영) prod=운영모드에서는 출력안함
+        if (AppConfig.isNotProd()) ex.printStackTrace();
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -33,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RsData<Void>> handle(MethodArgumentNotValidException ex) {
 
-        if(AppConfig.isNotProd()) ex.printStackTrace();
+        if (AppConfig.isNotProd()) ex.printStackTrace();
 
         String message = ex.getBindingResult()
                 .getAllErrors()
@@ -51,13 +52,16 @@ public class GlobalExceptionHandler {
                         message
                 ));
     }
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<RsData<Void>> handle(IllegalArgumentException ex) {   if (AppConfig.isNotProd()) ex.printStackTrace();
+
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<RsData<Void>> handle(ServiceException ex) {
+
+        if (AppConfig.isNotProd()) ex.printStackTrace();//dev,test,production(운영) prod=운영모드에서는 출력안함
+
+        RsData<Void> rsData = ex.getRsData();
+
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(new RsData<>(
-                        "400-1",
-                        ex.getMessage()
-                ));
+                .status(rsData.getStatusCode())
+                .body(rsData);
     }
 }
