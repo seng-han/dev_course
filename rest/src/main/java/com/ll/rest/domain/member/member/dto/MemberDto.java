@@ -17,9 +17,6 @@ public class MemberDto {
     @JsonProperty("modifiedDatetime")
     private LocalDateTime modifyDate;
 
-    private String username;
-
-    private String password;
 
     private String nickname;
 
@@ -27,8 +24,6 @@ public class MemberDto {
         this.id = member.getId();
         this.createDate = member.getCreateDate();
         this.modifyDate = member.getModifyDate();
-        this.username = member.getUsername();
-        this.password = member.getPassword();
         this.nickname = member.getNickname();
     }
 }
