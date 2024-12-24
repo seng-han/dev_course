@@ -2,11 +2,12 @@ package com.ll.rest.global.rsData;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)//json화 할 때 null이 포함되지 않게함
+@JsonInclude(Include.NON_NULL)//json화 할 때 null이 포함되지 않게함
 @AllArgsConstructor
 @Getter
 public class RsData<T> {

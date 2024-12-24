@@ -9,8 +9,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor // 기본 생성자 생성
+@AllArgsConstructor // 모든 필드를 파라미터로 받는 생성자 생성
 public class Member extends BaseTime {
     @Column(unique = true, length = 30)
     private String username;

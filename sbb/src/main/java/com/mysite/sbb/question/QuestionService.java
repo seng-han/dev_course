@@ -46,4 +46,11 @@ public class QuestionService {
         Pageable pageable = PageRequest.of(page,10, Sort.by(sorts));//page는 조회 할 페이지, 10은 한 페이지에 보여 줄 게시판의 개수
         return this.questionRepository.findAll(pageable);
     }
+
+    public void modify(Question question, String subject,String content){
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        this.questionRepository.save(question);
+    }
 }
