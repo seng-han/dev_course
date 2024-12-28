@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,4 +33,7 @@ public class Question {
 
     @ManyToOne// 사용자 한명이 여러개 질문 작성 가능하게
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter; //voter속성값이 서로 중복되지 않게 하기 위해 set사용
 }

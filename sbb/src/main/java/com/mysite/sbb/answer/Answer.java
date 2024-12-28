@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,4 +29,6 @@ public class Answer {
     @ManyToOne//jpa는 manytoone을 적용하면 자동으로 디비에 ~_id 로 생성됨
     private SiteUser author;
 
+    @ManyToMany //manytomany는 db에 새로운 테이블을 만들어서 관리함
+    Set<SiteUser> voter;
 }
